@@ -1,0 +1,18 @@
+Version of session file format:
+               1
+Time of storage:
+               "Wed Dec 21 21:16:07 EST 2011"
+Layout:        VerticalP (TerminalP {paneGroups = fromList [], paneTabs = Just TopP, currentPage = 0, detachedId = Nothing, detachedSize = Nothing}) (HorizontalP (TerminalP {paneGroups = fromList [("Browser",HorizontalP (TerminalP {paneGroups = fromList [], paneTabs = Nothing, currentPage = 0, detachedId = Nothing, detachedSize = Nothing}) (HorizontalP (TerminalP {paneGroups = fromList [], paneTabs = Nothing, currentPage = 0, detachedId = Nothing, detachedSize = Nothing}) (TerminalP {paneGroups = fromList [], paneTabs = Nothing, currentPage = 0, detachedId = Nothing, detachedSize = Nothing}) 243) 107)], paneTabs = Just BottomP, currentPage = 0, detachedId = Nothing, detachedSize = Nothing}) (TerminalP {paneGroups = fromList [], paneTabs = Nothing, currentPage = 0, detachedId = Nothing, detachedSize = Nothing}) 542) 988
+Population:    [(Just (ErrorsSt ErrorsState),[SplitP RightP,SplitP TopP]),(Just (InfoSt (InfoState Nothing)),[SplitP RightP,SplitP TopP,GroupP "Browser",SplitP BottomP,SplitP BottomP]),(Just (LogSt LogState),[SplitP RightP,SplitP BottomP]),(Just (BufferSt (BufferState "/Users/kalfonso/projects/haskell/gameoflife/src/Main.hs" 371)),[SplitP LeftP]),(Just (ModulesSt (ModulesState 286 (PackageScope False,False) (Nothing,Nothing) (ExpanderState {packageExp = ([],[]), packageExpNoBlack = ([],[]), packageDExp = ([],[]), packageDExpNoBlack = ([],[]), workspaceExp = ([],[]), workspaceExpNoBlack = ([],[]), workspaceDExp = ([],[]), workspaceDExpNoBlack = ([],[]), systemExp = ([],[]), systemExpNoBlack = ([],[])}))),[SplitP RightP,SplitP TopP,GroupP "Browser",SplitP BottomP,SplitP TopP]),(Just (WorkspaceSt WorkspaceState),[SplitP RightP,SplitP TopP,GroupP "Browser",SplitP TopP])]
+Window size:   (1439,852)
+Completion size:
+               (750,400)
+Workspace:     Just "/Users/kalfonso/projects/haskell/gameoflife/gameoflife.lkshw"
+Active pane:   Just "Main.hs"
+Toolbar visible:
+               True
+FindbarState:  (True,FindState {entryStr = "", entryHist = ["build-depends"], replaceStr = "", replaceHist = [], caseSensitive = False, entireWord = False, wrapAround = False, regex = False, lineNr = 1})
+Recently opened files:
+               ["/Users/kalfonso/projects/haskell/rwh/src/GameOfLife.hs","/Users/kalfonso/projects/haskell/rwh/rwh.cabal","/Users/kalfonso/projects/haskell/rwh/src/Main.hs","/Users/kalfonso/projects/haskell/rwh/src/Download.hs","/Users/kalfonso/projects/haskell/rwh/download-page.hs","/Applications/Leksah.app/Contents/Resources/share/leksah-0.10/data/welcome.txt"]
+Recently opened workspaces:
+               ["/Users/kalfonso/projects/haskell/gameoflife.lkshw","/Users/kalfonso/projects/haskell/rwh/real-world-haskell.lkshw"]

@@ -1,0 +1,10 @@
+Version of workspace file format:
+               1
+Time of storage:
+               "Sat Dec  3 20:21:50 EST 2011"
+Name of the workspace:
+               "gameoflife"
+File paths of contained packages:
+               ["gameoflife.cabal"]
+Maybe file path of an active package:
+               Just "gameoflife.cabal"
