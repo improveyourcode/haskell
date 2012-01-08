@@ -29,31 +29,31 @@ Haskell> quickCheck prop_listLast
 
 The test for an empty list fails this time due to our program throwing an exception for an empty list. This function still works fine however it will fail for an empty list. Prelude define function "last :: [a] -> a" that also fails with an exception for an empty list.
 
-What this means is that this is not a "total function": http://en.wikipedia.org/wiki/Partial_function
+What this means is that this is not a "total function": http://en.wikipedia.org/wiki/Partial_function. That means that listLast is not defined for the empty list.
 
-I then went ahead and changed the definition of this function to:
+QuickCheck allows to specify this type of constraints so I created the property listLastNotNull:
 
-listLast' :: [a] -> Maybe a
-listLast' [] = Nothing
-listLast' [x] = Just x
-listLast' (x:xs) = listLast' xs
+prop_listLastNotNull xs = not (null xs) ==> listLast [listLast xs] == listLast xs
 
-With this definition using the Maybe monad we're stating that listLast' can fail. It either returns (Just x) where x is the last element or Nothing if the list is the empty list. The good thing about this definition is that we're making this explicit at the type level.
+With this we get:
 
-The property definition must deal with the Maybe monad:
--- Repeating listLast' to the list of the result of applying listLast' to a list should equal to applying listLast' to the same list
-prop_listLast' xs = ((listLast' xs) >>= (\x -> listLast' [x])) == listLast' xs
-
-What this property is saying is that if I apply "listLast' xs", get the last element "x" and apply "listLast' [x]' (put last element into a list) it is the same as applying "listLast' xs'
-
-More information in the Maybe monad can be found at: http://learnyouahaskell.com/a-fistful-of-monads#getting-our-feet-wet-with-maybe
-
-Now running QuickCheck with this definition yields:
-
-Haskell> quickCheck prop_listLast'
+Haskell> quickCheck prop_listLastNotNull 
 +++ OK, passed 100 tests.
 
-QuickCheck generated 100 test cases for us, including corner cases and applied this property successfully.
+2- Appending the list withouth the last element to the list containing the last element should equal the list.
+   So, if the list is [1,2,3], this property means that [1,2] ++ [3] == [1,2,3]. (++) is the list concatenation operator:
 
+-- Appending the list withouth the last element to the list containing the last element should equal the list.
+-- init [1,2,3] = [1,2]
+prop_listLastConcat xs = not (null xs) ==> (init xs) ++ [listLast xs] == xs
+
+Running QuickCheck we get:
+
+Haskell> quickCheck prop_listLastConcat 
++++ OK, passed 100 tests.
+
+Conclusion
+
+Property Based Testing is an important testing technique that allows us to specify invariants of the code and generate test cases to prove those invariants. QuickCheck allows for customization of the number of test cases generated and creating new generators for custom data types. Further information could be found in: http://book.realworldhaskell.org/read/testing-and-quality-assurance.html
 
 
