@@ -52,6 +52,13 @@ Running QuickCheck we get:
 Haskell> quickCheck prop_listLastConcat 
 +++ OK, passed 100 tests.
 
+3- The last element of a list is the first element of the reversed list
+
+prop_listLastFirstReverse xs = not (null xs) ==> listLast xs == head (reverse xs)
+
+Haskell> quickCheck prop_listLastFirstReverse 
++++ OK, passed 100 tests.
+
 Conclusion
 
 Property Based Testing is an important testing technique that allows us to specify invariants of the code and generate test cases to prove those invariants. QuickCheck allows for customization of the number of test cases generated and creating new generators for custom data types. Further information could be found in: http://book.realworldhaskell.org/read/testing-and-quality-assurance.html

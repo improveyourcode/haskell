@@ -18,6 +18,9 @@ prop_listLastNotNull xs = not (null xs) ==> listLast [listLast xs] == listLast x
 -- init [1,2,3] = [1,2]
 prop_listLastConcat xs = not (null xs) ==> (init xs) ++ [listLast xs] == xs
 
+-- Last element of a list is the first element of the reversed list
+prop_listLastFirstReverse xs = not (null xs) ==> listLast xs == head (reverse xs)
+
 -- Repeating listLast' to the list of the result of applying listLast' to a list should equal to applying listLast' to the same list
 prop_listLast' xs = ((listLast' xs) >>= (\x -> listLast' [x])) == listLast' xs
 
