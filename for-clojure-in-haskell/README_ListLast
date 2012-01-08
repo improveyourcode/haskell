@@ -1,0 +1,59 @@
+Initially when solving the listLast function I made a mistake by defining:
+
+listLast [x] = x
+listLast (x:xs) = listLast xs
+
+Using QuickCheck we can define a property that should apply to this function:
+
+1- The result of applying listLast to the list of applying listlast should equal listLast of that list. This can be expressed in QuickCheck:
+ -- Idempotency property (sort of as listLast return an element and not a list)
+prop_listLast xs = listLast [listLast xs] == listLast xs
+ 
+After running QuickCheck in GHCi we get:
+
+Haskell> quickCheck prop_listLast
+*** Failed! Exception: 'ListLast.hs:(2,1)-(3,29): Non-exhaustive patterns in function listLast' (after 1 test):  
+[]
+
+
+QuickCheck generates random tests for this property and after one test using the empty list [], it found that it cannot determine the last element. It tells me that I forgot to define this function for an empty list. So I went ahead and looked at the way Prelude defines this function and added the corresponding error line as this function is not defined for the empty list:
+
+listLast [] = error "Cannot determine last element for an empty list"
+listLast [x] = x
+listLast (x:xs) = listLast xs
+
+Running QuickCheck again we get:
+Haskell> quickCheck prop_listLast
+*** Failed! Exception: 'Cannot determine last element for an empty list' (after 1 test):  
+[]
+
+The test for an empty list fails this time due to our program throwing an exception for an empty list. This function still works fine however it will fail for an empty list. Prelude define function "last :: [a] -> a" that also fails with an exception for an empty list.
+
+What this means is that this is not a "total function": http://en.wikipedia.org/wiki/Partial_function
+
+I then went ahead and changed the definition of this function to:
+
+listLast' :: [a] -> Maybe a
+listLast' [] = Nothing
+listLast' [x] = Just x
+listLast' (x:xs) = listLast' xs
+
+With this definition using the Maybe monad we're stating that listLast' can fail. It either returns (Just x) where x is the last element or Nothing if the list is the empty list. The good thing about this definition is that we're making this explicit at the type level.
+
+The property definition must deal with the Maybe monad:
+-- Repeating listLast' to the list of the result of applying listLast' to a list should equal to applying listLast' to the same list
+prop_listLast' xs = ((listLast' xs) >>= (\x -> listLast' [x])) == listLast' xs
+
+What this property is saying is that if I apply "listLast' xs", get the last element "x" and apply "listLast' [x]' (put last element into a list) it is the same as applying "listLast' xs'
+
+More information in the Maybe monad can be found at: http://learnyouahaskell.com/a-fistful-of-monads#getting-our-feet-wet-with-maybe
+
+Now running QuickCheck with this definition yields:
+
+Haskell> quickCheck prop_listLast'
++++ OK, passed 100 tests.
+
+QuickCheck generated 100 test cases for us, including corner cases and applied this property successfully.
+
+
+
