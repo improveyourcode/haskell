@@ -1,0 +1,18 @@
+import Test.QuickCheck
+
+rember :: Eq a => a -> [a] -> [a]
+rember _ [] = []
+rember a (x:xs) | a == x = xs
+                | otherwise = x:(rember a xs)
+                              
+prop_remove_doesnt_exist = forAll lists $ \xs ->
+                           forAll (elementsNotIn xs) $ \x -> 
+                           rember x xs == xs
+                           
+lists :: Gen [String]
+lists = arbitrary
+
+elementsNotIn :: [String] -> Gen String
+elementsNotIn xs = anyElement `suchThat` isNotInXs
+                   where anyElement = arbitrary
+                         isNotInXs = \x -> not $ x `elem` xs 

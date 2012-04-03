@@ -1,0 +1,4 @@
+multirember :: Eq a => a -> [a] -> [a]
+multirember _ [] = []
+multirember a (x:xs) | a == x = multirember a xs
+                     | otherwise = x : multirember a xs

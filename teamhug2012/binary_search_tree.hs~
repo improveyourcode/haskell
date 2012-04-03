@@ -1,0 +1,11 @@
+import Test.QuickCheck
+
+data Tree a = Node a (Tree a) (Tree a) | Empty deriving Show
+
+insert :: Ord a => a -> Tree a -> Tree a
+insert value Empty = Node value Empty Empty
+insert value (Node n leftBranch rightBranch) | value < n = Node n (insert value leftBranch) rightBranch
+                                             | otherwise = Node n leftBranch (insert value rightBranch)
+                                                           
+instance Arbitrary (Tree Int) where
+  arbitrary = Empty
